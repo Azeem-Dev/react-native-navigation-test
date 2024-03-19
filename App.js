@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import {
   CategoriesScreen,
   MealDetailScreen,
@@ -47,6 +47,11 @@ export default function App() {
           <Stack.Screen
             name="MealDetails"
             component={MealDetailScreen}
+            // options={{
+            //   headerRight: () => {
+            //     return <Text>In the header</Text>;
+            //   },
+            // }}
             //setting header info etc dynamically i.e
             // options={({ route, navigation }) => {
             //   const catId = route.params.categoryId;

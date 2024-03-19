@@ -10,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
+import FavourtiesContextProvider from "./store/context/favourites-context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -60,56 +61,58 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer initialRouteName="MealsCategories">
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#351401",
-            },
-            headerTintColor: "white",
-            contentStyle: {
-              backgroundColor: "#3f2f25",
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Drawer"
-            // component={CategoriesScreen}
-            component={DrawerNavigator}
-            options={{
-              title: "All Categories",
-              headerShown: false,
+      <FavourtiesContextProvider>
+        <NavigationContainer initialRouteName="MealsCategories">
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "#351401",
+              },
+              headerTintColor: "white",
+              contentStyle: {
+                backgroundColor: "#3f2f25",
+              },
             }}
-          />
-          <Stack.Screen
-            name="MealsOverview"
-            component={MealsOverviewScreen}
-            //setting header info etc dynamically i.e
-            // options={({ route, navigation }) => {
-            //   const catId = route.params.categoryId;
-            //   return {
-            //     title: catId,
-            //   };
-            // }}
-          />
-          <Stack.Screen
-            name="MealDetails"
-            component={MealDetailScreen}
-            // options={{
-            //   headerRight: () => {
-            //     return <Text>In the header</Text>;
-            //   },
-            // }}
-            //setting header info etc dynamically i.e
-            // options={({ route, navigation }) => {
-            //   const catId = route.params.categoryId;
-            //   return {
-            //     title: catId,
-            //   };
-            // }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="Drawer"
+              // component={CategoriesScreen}
+              component={DrawerNavigator}
+              options={{
+                title: "All Categories",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="MealsOverview"
+              component={MealsOverviewScreen}
+              //setting header info etc dynamically i.e
+              // options={({ route, navigation }) => {
+              //   const catId = route.params.categoryId;
+              //   return {
+              //     title: catId,
+              //   };
+              // }}
+            />
+            <Stack.Screen
+              name="MealDetails"
+              component={MealDetailScreen}
+              // options={{
+              //   headerRight: () => {
+              //     return <Text>In the header</Text>;
+              //   },
+              // }}
+              //setting header info etc dynamically i.e
+              // options={({ route, navigation }) => {
+              //   const catId = route.params.categoryId;
+              //   return {
+              //     title: catId,
+              //   };
+              // }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavourtiesContextProvider>
     </>
   );
 }

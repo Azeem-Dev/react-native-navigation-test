@@ -6,23 +6,29 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { List, MealDetails, SubTitle } from "../components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
-
+import { FavourtiesContext } from "../store/context/favourites-context";
 
 const MealDetailScreen = ({ route, navigation }) => {
-  
+  const favourtieMealCtx = useContext(FavourtiesContext);
 
   const {
     params: { meal },
   } = route;
 
+  const mealIsFav = favourtieMealCtx.ids.includes(meal.id);
+
   const FavouriteTheMeal = () => {
-    meal.isFavourite = !meal.isFavourite;
-    MEALS.find((c) => c.id === meal.id).isFavourite = meal.isFavourite;
+    if (mealIsFav) {
+      favourtieMealCtx.removeFavourtie(meal.id);
+      return;
+    }
+    favourtieMealCtx.addFavourtie(meal.id);
   };
+
   const getPressableFavouriteButton = () => {
     return (
       <View style={styles.iconContainer}>
@@ -31,7 +37,7 @@ const MealDetailScreen = ({ route, navigation }) => {
             name="heart-outline"
             size={24}
             color="black"
-            style={!meal.isFavourite ? styles.iconColor : styles.mealFavourted}
+            style={!mealIsFav ? styles.iconColor : styles.mealFavourted}
           />
         </Pressable>
       </View>
@@ -43,7 +49,7 @@ const MealDetailScreen = ({ route, navigation }) => {
       title: meal.title ?? "",
       headerRight: getPressableFavouriteButton,
     });
-  }, [meal, navigation]);
+  }, [meal, navigation, favourtieMealCtx]);
 
   return (
     <ScrollView style={styles.rootContainer}>

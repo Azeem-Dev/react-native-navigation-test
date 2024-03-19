@@ -11,7 +11,10 @@ import { List, MealDetails, SubTitle } from "../components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
 
+
 const MealDetailScreen = ({ route, navigation }) => {
+  
+
   const {
     params: { meal },
   } = route;

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "navigation-test",
-    "slug": "navigation-test",
+    "name": "MealsApp",
+    "slug": "MealsApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "backgroundColor":"#24180f",
+    "backgroundColor": "#24180f",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.devscorp.MealsApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5ac12308-0196-4e24-b3f9-def4e9017126"
+      }
     }
   }
 }

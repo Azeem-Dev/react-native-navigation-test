@@ -6,27 +6,37 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useContext, useLayoutEffect } from "react";
+import React, {
+  // useContext,
+  useLayoutEffect,
+} from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import { List, MealDetails, SubTitle } from "../components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MEALS } from "../data/dummy-data";
-import { FavourtiesContext } from "../store/context/favourites-context";
+import { addFavourite, removeFavourite } from "../store/redux/favourites";
+// import { FavourtiesContext } from "../store/context/favourites-context";
 
 const MealDetailScreen = ({ route, navigation }) => {
-  const favourtieMealCtx = useContext(FavourtiesContext);
-
+  // const favourtieMealCtx = useContext(FavourtiesContext);
+  const dispatch = useDispatch();
   const {
     params: { meal },
   } = route;
 
-  const mealIsFav = favourtieMealCtx.ids.includes(meal.id);
+  const favouriteMealIds = useSelector((state) => state.favouriteMeals.ids);
+  const mealIsFav = favouriteMealIds.includes(meal.id);
 
   const FavouriteTheMeal = () => {
     if (mealIsFav) {
-      favourtieMealCtx.removeFavourtie(meal.id);
+      let removeFavouriteAction = removeFavourite({ id: meal.id });
+      dispatch(removeFavouriteAction);
       return;
     }
-    favourtieMealCtx.addFavourtie(meal.id);
+    let addFavouriteAction = addFavourite({ id: meal.id });
+    dispatch(addFavouriteAction);
+    // favourtieMealCtx.addFavourtie(meal.id);
   };
 
   const getPressableFavouriteButton = () => {
@@ -49,7 +59,12 @@ const MealDetailScreen = ({ route, navigation }) => {
       title: meal.title ?? "",
       headerRight: getPressableFavouriteButton,
     });
-  }, [meal, navigation, favourtieMealCtx]);
+  }, [
+    meal,
+    navigation,
+    favouriteMealIds,
+    // , favourtieMealCtx
+  ]);
 
   return (
     <ScrollView style={styles.rootContainer}>
